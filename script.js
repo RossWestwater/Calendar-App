@@ -1,4 +1,5 @@
 var timeblockInser = document.getElementById("timeblock-place");
+var timeDisplay = document.getElementById("currentDay");
 
 workingHours = 10;
 selectionValue = 0;
@@ -7,6 +8,12 @@ timeBlock =
   {
     hour: ["8:00 AM","9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM", "5:00 PM"],
     tasks: ["test2"],
+  }
+
+  
+
+  var setDate = function () {
+    timeDisplay.textContent = moment().format("dddd, MMMM Do");
   }
 
 var createTimeblock = function () {
@@ -27,20 +34,29 @@ var createTimeblock = function () {
     .attr("type","text")
     timeblockTask.append(taskInput);
 //   // create div to insert save button. test text to visualize div creation.
-  var timeblockSave = $("<div>")
-    .addClass("col-2 mr-2 bg-success p-2 save-div ");
+  var timeblockSaveEl = $("<div>")
+    .addClass("col-2 mr-2 bg-success p-2 save-div text-center");
     var saveIcon = $("<i>")
     saveIcon.addClass("fas fa-save fa-5x")
-    timeblockSave.append(saveIcon);
+    .attr("type", "button")
+    .on("click", function (event) {
+      $(this).event.target
+    });
+    timeblockSaveEl.append(saveIcon);
 //   // start stuffing divs into DOM
 //   // container into parent
 //   // other three sections into the container
-  containerEl.append(timeblockTime, timeblockTask, timeblockSave);
+  containerEl.append(timeblockTime, timeblockTask, timeblockSaveEl);
   $("#timeblock-place").append(containerEl);
   }
 };
 
+var timeBlockSave = function (params) {
+  $(timeBlock.tasks).push("<textarea>")
+console.log(timeBlock.tasks);
+}
 
+setDate();
 createTimeblock();
 
 /* <div class="container-fluid" id="timeblock-place">
