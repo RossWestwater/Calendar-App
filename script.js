@@ -63,7 +63,7 @@ timeBlock = [
   }
 
 var createTimeblock = function () {
-  testArr = [];
+  // testArr = [];
 //   // loop the following
   for (var i = 0; i < timeBlock.length; i++){
 //   // create container
@@ -82,7 +82,8 @@ var createTimeblock = function () {
     taskInput
     .addClass("text-light col-12 border-0")
     .attr("type","text")
-    timeblockTask.text(timeBlock[i].tasks)
+    .attr("id", i)
+    taskInput.text(timeBlock[i].tasks)
     timeblockTask.append(taskInput);
 //   // create div to insert save button. test text to visualize div creation.
   var timeblockSaveEl = $("<div>")
@@ -90,9 +91,55 @@ var createTimeblock = function () {
     var saveIcon = $("<i>")
     saveIcon.addClass("fas fa-save fa-5x")
     .attr("type", "button")
-    .attr("data-number", selectionValue)
+    .attr("data-number", i)
     .on("click", function (event) {
       event.target;
+      var btn = $(this).attr("data-number");
+      var btnInput = $(this).parent().siblings().children().val();
+      console.log(btn);
+      console.log(btnInput);
+      console.log(timeBlock[0].tasks);
+      if(btn === "0"){
+        (timeBlock[0].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      if(btn === "1"){
+        (timeBlock[1].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "2"){
+        (timeBlock[2].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "3"){
+        (timeBlock[3].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "4"){
+        (timeBlock[4].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "5"){
+        (timeBlock[5].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "6"){
+        (timeBlock[6].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "7"){
+        (timeBlock[7].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "8"){
+        (timeBlock[8].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      else if (btn === "9"){
+        (timeBlock[9].tasks).push(btnInput);
+        timeBlockSave();
+      }
+      console.log(timeBlock[0].tasks);
     });
     timeblockSaveEl.append(saveIcon);
 //   // start stuffing divs into DOM
@@ -104,10 +151,18 @@ var createTimeblock = function () {
   }
 };
 
-var timeBlockSave = function (params) {
-  $(timeBlock.tasks[i]).push("<textarea>", value)
-console.log(timeBlock.tasks);
-}
+var timeBlockSave = function () {
+    localStorage.setItem("savedtasks", JSON.stringify(timeBlock));
+};
 
+var timeBlockLoad = function () {
+    var loadTasks = localStorage.getItem("savedtasks");
+    if (!loadTasks) {
+      return false;
+    }
+    timeBlock = JSON.parse(loadTasks);
+};
+
+timeBlockLoad();
 setDate();
 createTimeblock();
